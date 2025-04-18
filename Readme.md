@@ -24,10 +24,10 @@ A Node.js and Express-based backend server for a pet adoption platform. This ser
 
 ## 📁 Project Structure
 
-📦server
- ┣ 📂models
- ┃ ┣ 📜User.js
- ┃ ┣ 📜Pet.js
+📦server \
+ ┣ 📂models \
+ ┃ ┣ 📜User.js \
+ ┃ ┣ 📜Pet.js 
  ┃ ┣ 📜Wishlist.js
  ┃ ┗ 📜Orders.js
  ┣ 📜routes.js      ← Main server routes (your code)

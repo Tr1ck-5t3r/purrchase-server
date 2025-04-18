@@ -12,15 +12,37 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const allowedOrigins = [
+  process.env.URL, // Your main production frontend URL
+  process.env.FRONTEND_DEV_URL || "http://localhost:5173", // Your local dev URL
+];
+
+const corsOptions = {
+  // origin can be a function for more complex logic
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    // Check if the origin is in our allowed list
+    // Or if it matches a pattern for Vercel previews (see Option 2 below)
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      // Origin is allowed
+      return callback(null, true);
+    } else {
+      // Origin is not allowed
+      console.warn(`CORS: Blocked origin: ${origin}`); // Log blocked origins
+      return callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+};
+
 // --- CORS Configuration ---
-app.use(
-  cors({
-    origin: process.env.URL,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
+console.log("Allowed CORS Origins:", allowedOrigins.filter(Boolean)); // Log defined origins
+app.use(cors(corsOptions));
+
 
 // --- Connect to MongoDB ---
 mongoose
