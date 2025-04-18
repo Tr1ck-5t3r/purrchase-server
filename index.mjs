@@ -12,7 +12,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigins = [
+/* const allowedOrigins = [
   process.env.URL, // Your main production frontend URL
   process.env.FRONTEND_DEV_URL || "http://localhost:5173", // Your local dev URL
 ];
@@ -42,6 +42,16 @@ const corsOptions = {
 // --- CORS Configuration ---
 console.log("Allowed CORS Origins:", allowedOrigins.filter(Boolean)); // Log defined origins
 app.use(cors(corsOptions));
+ */
+
+app.use(
+  cors({
+    origin: true, // Reflect the request origin; allows any origin to make requests
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // <<< This WILL work with origin: true
+  })
+);
 
 
 // --- Connect to MongoDB ---
