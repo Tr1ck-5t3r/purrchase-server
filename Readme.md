@@ -22,18 +22,6 @@ A Node.js and Express-based backend server for a pet adoption platform. This ser
 - Payments: Razorpay API
 - Environment Management: dotenv
 
-## 📁 Project Structure
-
-📦server \
- ┣ 📂models \
- ┃ ┣ 📜User.js \
- ┃ ┣ 📜Pet.js 
- ┃ ┣ 📜Wishlist.js
- ┃ ┗ 📜Orders.js
- ┣ 📜routes.js      ← Main server routes (your code)
- ┣ 📜server.js      ← Express server entry point
- ┗ 📜.env           ← Environment variables
-
 ## 📦 Installation
 
 ```bash
